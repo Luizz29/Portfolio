@@ -115,7 +115,7 @@ const projects = [
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-lg md:text-xl text-zinc-400 max-w-2xl font-light leading-relaxed mb-10"
         >
-          I design and architect modern web systems. Specializing in high-performance Golang backends and sleek React interfaces.
+          I design and architect modern web systems. Specializing in high-performance backends and sleek React interfaces.
         </motion.p>
 
         <motion.div
