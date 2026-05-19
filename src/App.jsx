@@ -53,7 +53,7 @@ const projects = [
   {
     id: 3,
     title: "E-Commerce",
-    desc: "Developed a peer-to-peer marketplace web application for buying and selling second-hand goods. Integrated secure payment gateway using :contentReference[oaicite:0]{index=0}, and implemented features such as product listing, user authentication, and transaction management.",
+    desc: "Developed a peer-to-peer marketplace web application for buying and selling second-hand goods. Integrated secure payment gateway using Midtrans, and implemented features such as product listing, user authentication, and transaction management.",
     tech: ["PHP", "MYSQL", "Bootstrap"],
   }
 ];
