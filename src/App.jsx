@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Mail, Globe, Briefcase, ChevronRight, Download, ExternalLink } from "lucide-react";
 import profile from "./assets/profile.png";
+import cvPdf from "./assets/CV_Alfaluis.pdf";
 
 const fadeIn = {
   hidden: { opacity: 0, y: 30 },
@@ -131,7 +132,8 @@ const projects = [
             Explore My Work <ChevronRight size={18} />
           </a>
           <a
-            href="#"
+            href={cvPdf}
+            download="CV_Alfaluis.pdf"
             className="flex items-center gap-2 px-8 py-3.5 border border-zinc-700 hover:border-zinc-500 hover:bg-zinc-800/50 text-zinc-300 rounded-full font-medium transition-all"
           >
             Download CV <Download size={18} />
