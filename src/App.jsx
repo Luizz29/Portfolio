@@ -4,6 +4,22 @@ import { Mail, Globe, Briefcase, ChevronRight, Download, ExternalLink } from "lu
 import profile from "./assets/profile.png";
 import cvPdf from "./assets/CV_Alfaluis.pdf";
 
+const Github = (props) => (
+  <svg
+    viewBox="0 0 24 24"
+    width="20"
+    height="20"
+    stroke="currentColor"
+    strokeWidth="2"
+    fill="none"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+  </svg>
+);
+
 const fadeIn = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
@@ -44,18 +60,28 @@ const projects = [
     title: "Exam Platform System",
     desc: "Developed a web-based online exam system with secure authentication, anti-cheating features, and real-time monitoring dashboard. Enabled scheduled exams, role-based access, and location-based validation to ensure exam integrity.",
     tech: ["Golang", "React", "PostgreSQL", "Tailwind"],
+    github: "https://github.com/Luizz29/Exam-Management",
   },
   {
     id: 2,
     title: "Music Player",
     desc: "Built a web-based music player application with playlist management and real-time audio streaming. Designed an interactive UI and optimized performance for smooth playback experience.",
     tech: ["Laravel", "Tailwind", "PostgreSQL"],
+    github: "https://github.com/Luizz29/vmp",
   },
   {
     id: 3,
     title: "E-Commerce",
     desc: "Developed a peer-to-peer marketplace web application for buying and selling second-hand goods. Integrated secure payment gateway using Midtrans, and implemented features such as product listing, user authentication, and transaction management.",
     tech: ["PHP", "MYSQL", "Bootstrap"],
+    github: "https://github.com/Luizz29/Jual-Beli-Barang-Bekas",
+  },
+  {
+    id: 4,
+    title: "Residential Management",
+    desc: "Developed a residential management system designed to monitor visitor logs (in/out tracking) for each household and automate neighborhood maintenance fee (iuran) collections. Features secure administration panel and billing status dashboard.",
+    tech: ["Laravel", "React", "MySQL", "Tailwind", "Javascript"],
+    github: "https://github.com/Luizz29/ResidentalManagement",
   }
 ];
 
@@ -70,8 +96,7 @@ const projects = [
 
       {/* Navbar Minimal */}
       <nav className="fixed top-0 w-full glass-panel z-50 px-6 py-4 border-b-0 border-t-0 border-x-0 border-zinc-800">
-        <div className="max-w-5xl mx-auto flex justify-between items-center">
-          <span className="font-display font-bold text-xl tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-accent-400">ABA.</span>
+        <div className="max-w-5xl mx-auto flex justify-end items-center">
           <div className="hidden md:flex gap-8 text-sm font-medium text-zinc-400">
             <a href="#about" className="hover:text-primary-400 transition-colors">About</a>
             <a href="#experience" className="hover:text-primary-400 transition-colors">Experience</a>
@@ -257,22 +282,41 @@ const projects = [
               <div className="p-6 flex-1 flex flex-col">
                 <div className="flex justify-between items-start mb-4">
                   <h4 className="text-xl font-bold font-display group-hover:text-primary-400 transition-colors">{project.title}</h4>
-                  <a href="#" className="text-zinc-500 hover:text-primary-400 transition-colors">
-                    <ExternalLink size={20} />
-                  </a>
+                  {project.link && (
+                    <a 
+                      href={project.link} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="text-zinc-500 hover:text-primary-400 transition-colors"
+                      title="Live Demo"
+                    >
+                      <ExternalLink size={20} />
+                    </a>
+                  )}
                 </div>
 
                 <p className="text-zinc-400 text-sm leading-relaxed mb-6 flex-1">
                   {project.desc}
                 </p>
 
-                <div className="flex flex-wrap gap-2 mt-auto">
+                <div className="flex flex-wrap gap-2 mt-auto mb-6">
                   {project.tech.map((t) => (
                     <span key={t} className="text-xs font-mono text-accent-400 bg-accent-400/10 px-2 py-1 rounded">
                       {t}
                     </span>
                   ))}
                 </div>
+
+                {project.github && (
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-zinc-800/50 hover:bg-zinc-700/50 text-zinc-300 hover:text-white rounded-xl font-medium text-sm transition-all border border-zinc-800 hover:border-zinc-700 mt-2"
+                  >
+                    <Github size={16} /> Open in GitHub
+                  </a>
+                )}
               </div>
             </motion.div>
           ))}
@@ -290,18 +334,18 @@ const projects = [
             Currently open for new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!
           </p>
 
-          <a href="mailto:hello@example.com" className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black hover:bg-zinc-200 rounded-full font-semibold transition-colors shadow-lg shadow-white/10 mb-12">
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=bintangalfaluis@gmail.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black hover:bg-zinc-200 rounded-full font-semibold transition-colors shadow-lg shadow-white/10 mb-12">
             Say Hello <Mail size={18} />
           </a>
 
           <div className="flex justify-center gap-8 border-t border-zinc-800/50 pt-10">
-            <a href="#" className="text-zinc-500 hover:text-white transition-colors p-2 hover:bg-zinc-800 rounded-full" aria-label="GitHub">
-              <Globe />
+            <a href="https://github.com/Luizz29" target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-white transition-colors p-2 hover:bg-zinc-800 rounded-full" aria-label="GitHub">
+              <Github />
             </a>
             <a href="#" className="text-zinc-500 hover:text-primary-400 transition-colors p-2 hover:bg-zinc-800 rounded-full" aria-label="LinkedIn">
               <Briefcase />
             </a>
-            <a href="#" className="text-zinc-500 hover:text-accent-400 transition-colors p-2 hover:bg-zinc-800 rounded-full" aria-label="Twitter">
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=bintangalfaluis@gmail.com" target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-accent-400 transition-colors p-2 hover:bg-zinc-800 rounded-full" aria-label="Email">
               <Mail />
             </a>
           </div>
