@@ -3,6 +3,13 @@ import { motion } from "framer-motion";
 import { Mail, Globe, Briefcase, ChevronRight, Download, ExternalLink } from "lucide-react";
 import profile from "./assets/profile.png";
 import cvPdf from "./assets/CV_Alfaluis.pdf";
+import dashboardAdmin from "./assets/dashboard admin.png";
+import masterMenu from "./assets/mastermenu.png";
+import halamanUjian from "./assets/halaman ujian.png";
+import dashboardPerumahan from "./assets/dashboardperumahan.png";
+import formBayar from "./assets/formbayar.png";
+import daftarRumah from "./assets/daftarrumah.png";
+import laporanPerumahan from "./assets/laporanperumahan.png";
 
 const Github = (props) => (
   <svg
@@ -33,7 +40,125 @@ const staggerContainer = {
   },
 };
 
+function ProjectCard({ project, onImageClick }) {
+  const [activeImage, setActiveImage] = React.useState(0);
+  const hasImages = project.images && project.images.length > 0;
+
+  return (
+    <motion.div
+      variants={fadeIn}
+      className="glass-panel glass-panel-hover rounded-2xl overflow-hidden flex flex-col group w-full max-w-sm"
+    >
+      {/* Image Container */}
+      <div className="h-48 w-full bg-zinc-800 relative overflow-hidden">
+        {hasImages ? (
+          <div className="w-full h-full relative">
+            <img
+              src={project.images[activeImage]}
+              alt={project.title}
+              onClick={() => onImageClick && onImageClick(project.images[activeImage])}
+              className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105 cursor-zoom-in"
+            />
+            {project.images.length > 1 && (
+              <>
+                {/* Navigation Arrows */}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setActiveImage((prev) => (prev === 0 ? project.images.length - 1 : prev - 1));
+                  }}
+                  className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black/80 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity z-10 text-sm font-bold"
+                >
+                  &larr;
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setActiveImage((prev) => (prev === project.images.length - 1 ? 0 : prev + 1));
+                  }}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black/80 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity z-10 text-sm font-bold"
+                >
+                  &rarr;
+                </button>
+                {/* Navigation Dots */}
+                <div className="absolute bottom-2 inset-x-0 flex justify-center z-10">
+                  <div className="flex gap-1.5 bg-black/50 backdrop-blur-sm px-2.5 py-1.5 rounded-full border border-white/10">
+                    {project.images.map((_, idx) => (
+                      <button
+                        key={idx}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setActiveImage(idx);
+                        }}
+                        className={`w-1.5 h-1.5 rounded-full transition-all ${
+                          activeImage === idx ? "bg-primary-400 w-3.5" : "bg-white/40 hover:bg-white/70"
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+        ) : (
+          /* Placeholder */
+          <div className="w-full h-full relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-zinc-700/50 to-zinc-900/50 mix-blend-overlay"></div>
+            <div className="absolute inset-0 flex flex-col items-center justify-center opacity-40 group-hover:opacity-60 transition-opacity duration-300">
+              <Briefcase size={32} className="mb-2" />
+              <span className="text-xs uppercase tracking-widest">Project Visual</span>
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div className="p-6 flex-1 flex flex-col">
+        <div className="flex justify-between items-start mb-4">
+          <h4 className="text-xl font-bold font-display group-hover:text-primary-400 transition-colors">
+            {project.title}
+          </h4>
+          {project.link && (
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-zinc-500 hover:text-primary-400 transition-colors"
+              title="Live Demo"
+            >
+              <ExternalLink size={20} />
+            </a>
+          )}
+        </div>
+
+        <p className="text-zinc-400 text-sm leading-relaxed mb-6 flex-1">
+          {project.desc}
+        </p>
+
+        <div className="flex flex-wrap gap-2 mt-auto mb-6">
+          {project.tech.map((t) => (
+            <span key={t} className="text-xs font-mono text-accent-400 bg-accent-400/10 px-2 py-1 rounded">
+              {t}
+            </span>
+          ))}
+        </div>
+
+        {project.github && (
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-zinc-800/50 hover:bg-zinc-700/50 text-zinc-300 hover:text-white rounded-xl font-medium text-sm transition-all border border-zinc-800 hover:border-zinc-700 mt-2"
+          >
+            <Github size={16} /> Open in GitHub
+          </a>
+        )}
+      </div>
+    </motion.div>
+  );
+}
+
 export default function Portfolio() {
+  const [lightboxImage, setLightboxImage] = React.useState(null);
   const skills = [
     "Golang", "React", "PostgreSQL", "Codeigniter", "JWT",
     "REST API", "TailwindCSS", "Javascript", "Laravel"
@@ -61,28 +186,16 @@ const projects = [
     desc: "Developed a web-based online exam system with secure authentication, anti-cheating features, and real-time monitoring dashboard. Enabled scheduled exams, role-based access, and location-based validation to ensure exam integrity.",
     tech: ["Golang", "React", "PostgreSQL", "Tailwind"],
     github: "https://github.com/Luizz29/Exam-Management",
+    images: [dashboardAdmin, masterMenu, halamanUjian],
   },
   {
-    id: 2,
-    title: "Music Player",
-    desc: "Built a web-based music player application with playlist management and real-time audio streaming. Designed an interactive UI and optimized performance for smooth playback experience.",
-    tech: ["Laravel", "Tailwind", "PostgreSQL"],
-    github: "https://github.com/Luizz29/vmp",
-  },
-  {
-    id: 3,
-    title: "E-Commerce",
-    desc: "Developed a peer-to-peer marketplace web application for buying and selling second-hand goods. Integrated secure payment gateway using Midtrans, and implemented features such as product listing, user authentication, and transaction management.",
-    tech: ["PHP", "MYSQL", "Bootstrap"],
-    github: "https://github.com/Luizz29/Jual-Beli-Barang-Bekas",
+    id: 4,
+    title: "Residential Management",
+    desc: "Developed a residential management system designed to monitor visitor logs (in/out tracking) for each household and automate neighborhood maintenance fee (iuran) collections. Features secure administration panel and billing status dashboard.",
+    tech: ["Laravel", "React", "MySQL", "Tailwind", "Javascript"],
+    github: "https://github.com/Luizz29/ResidentalManagement",
+    images: [dashboardPerumahan, formBayar, daftarRumah, laporanPerumahan],
   }
-  // {
-  //   id: 4,
-  //   title: "Residential Management",
-  //   desc: "Developed a residential management system designed to monitor visitor logs (in/out tracking) for each household and automate neighborhood maintenance fee (iuran) collections. Features secure administration panel and billing status dashboard.",
-  //   tech: ["Laravel", "React", "MySQL", "Tailwind", "Javascript"],
-  //   github: "https://github.com/Luizz29/ResidentalManagement",
-  // }
 ];
 
   return (
@@ -258,63 +371,10 @@ const projects = [
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
           variants={staggerContainer}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="flex flex-wrap justify-center gap-8"
         >
           {projects.map((project) => (
-            <motion.div
-              key={project.id}
-              variants={fadeIn}
-              className="glass-panel glass-panel-hover rounded-2xl overflow-hidden flex flex-col group"
-            >
-              {/* Image Placeholder */}
-              <div className="h-48 w-full bg-zinc-800 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-zinc-700/50 to-zinc-900/50 mix-blend-overlay"></div>
-                <div className="absolute inset-0 flex flex-col items-center justify-center opacity-40 group-hover:opacity-60 transition-opacity duration-300">
-                  <Briefcase size={32} className="mb-2" />
-                  <span className="text-xs uppercase tracking-widest">Project Visual</span>
-                </div>
-              </div>
-
-              <div className="p-6 flex-1 flex flex-col">
-                <div className="flex justify-between items-start mb-4">
-                  <h4 className="text-xl font-bold font-display group-hover:text-primary-400 transition-colors">{project.title}</h4>
-                  {project.link && (
-                    <a 
-                      href={project.link} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="text-zinc-500 hover:text-primary-400 transition-colors"
-                      title="Live Demo"
-                    >
-                      <ExternalLink size={20} />
-                    </a>
-                  )}
-                </div>
-
-                <p className="text-zinc-400 text-sm leading-relaxed mb-6 flex-1">
-                  {project.desc}
-                </p>
-
-                <div className="flex flex-wrap gap-2 mt-auto mb-6">
-                  {project.tech.map((t) => (
-                    <span key={t} className="text-xs font-mono text-accent-400 bg-accent-400/10 px-2 py-1 rounded">
-                      {t}
-                    </span>
-                  ))}
-                </div>
-
-                {project.github && (
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-zinc-800/50 hover:bg-zinc-700/50 text-zinc-300 hover:text-white rounded-xl font-medium text-sm transition-all border border-zinc-800 hover:border-zinc-700 mt-2"
-                  >
-                    <Github size={16} /> Open in GitHub
-                  </a>
-                )}
-              </div>
-            </motion.div>
+            <ProjectCard key={project.id} project={project} onImageClick={setLightboxImage} />
           ))}
         </motion.div>
       </section>
@@ -352,6 +412,26 @@ const projects = [
       <footer className="py-8 text-center text-zinc-600 border-t border-zinc-800/50 text-sm font-medium">
         <p>Built with React & Tailwind. © {new Date().getFullYear()} Alfaluis Bintang Arsa.</p>
       </footer>
+
+      {/* Lightbox Modal */}
+      {lightboxImage && (
+        <div 
+          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 cursor-zoom-out"
+          onClick={() => setLightboxImage(null)}
+        >
+          <button 
+            className="absolute top-6 right-6 text-white/70 hover:text-white text-3xl font-light"
+            onClick={() => setLightboxImage(null)}
+          >
+            &times;
+          </button>
+          <img 
+            src={lightboxImage} 
+            alt="Enlarged view" 
+            className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl animate-fade-in"
+          />
+        </div>
+      )}
     </div>
   );
 }
