@@ -228,7 +228,7 @@ const projects = [
           className="relative mb-8"
         >
           {/* Avatar Placeholder */}
-          <div className="w-32 h-32 md:w-40 md:h-40 rounded-full p-1 bg-gradient-to-br from-primary-500 to-accent-400 mx-auto shadow-2xl shadow-primary-500/20">
+          <div className="w-[13rem] h-[13rem] rounded-full p-1 bg-gradient-to-br from-primary-500 to-accent-400 mx-auto shadow-2xl shadow-primary-500/20">
             <div className="w-full h-full rounded-full overflow-hidden border-2 border-background bg-[#1e3a8a]">
               <img
                 src={profile}
