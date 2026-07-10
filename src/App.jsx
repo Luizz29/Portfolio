@@ -75,14 +75,14 @@ const projects = [
     desc: "Developed a peer-to-peer marketplace web application for buying and selling second-hand goods. Integrated secure payment gateway using Midtrans, and implemented features such as product listing, user authentication, and transaction management.",
     tech: ["PHP", "MYSQL", "Bootstrap"],
     github: "https://github.com/Luizz29/Jual-Beli-Barang-Bekas",
-  },
-  {
-    id: 4,
-    title: "Residential Management",
-    desc: "Developed a residential management system designed to monitor visitor logs (in/out tracking) for each household and automate neighborhood maintenance fee (iuran) collections. Features secure administration panel and billing status dashboard.",
-    tech: ["Laravel", "React", "MySQL", "Tailwind", "Javascript"],
-    github: "https://github.com/Luizz29/ResidentalManagement",
   }
+  // {
+  //   id: 4,
+  //   title: "Residential Management",
+  //   desc: "Developed a residential management system designed to monitor visitor logs (in/out tracking) for each household and automate neighborhood maintenance fee (iuran) collections. Features secure administration panel and billing status dashboard.",
+  //   tech: ["Laravel", "React", "MySQL", "Tailwind", "Javascript"],
+  //   github: "https://github.com/Luizz29/ResidentalManagement",
+  // }
 ];
 
   return (
@@ -179,17 +179,13 @@ const projects = [
             <h2 className="text-sm font-bold tracking-widest text-primary-400 uppercase mb-3">About Me</h2>
             <h3 className="text-3xl md:text-4xl font-display font-bold mb-6">Driven by logic. Inspired by design.</h3>
             <p className="text-zinc-400 leading-relaxed mb-6">
-              I am a passionate software engineer with a strong foundation in building scalable architectures.
-              My journey involves translating complex business logic into clean, maintainable, and highly efficient code.
-            </p>
-            <p className="text-zinc-400 leading-relaxed">
-            I spend my time exploring system design patterns, optimizing databases, and learning about cloud-native technologies.
+              I am a Web Developer and Software Engineering graduate with a strong interest in backend development. I have hands-on experience building web applications using Golang, Codeigniter, Laravel, React, PHP, and PostgreSQL through academic and internship projects. I enjoy developing clean, maintainable, and efficient applications while continuously learning new technologies to improve my skills.
             </p>
           </div>
 
           <div className="glass-panel p-8 rounded-3xl relative overflow-hidden">
             <div className="absolute -top-10 -right-10 w-32 h-32 bg-accent-500/20 blur-2xl rounded-full"></div>
-            <h4 className="text-xl font-semibold mb-6">Technical Arsenal</h4>
+            <h4 className="text-xl font-semibold mb-6">Tech Stack</h4>
             <div className="flex flex-wrap gap-3 relative z-10">
               {skills.map((skill) => (
                 <span
